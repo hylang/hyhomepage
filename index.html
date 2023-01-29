@@ -41,4 +41,71 @@ To install the latest release of Hy, just use the command <code>pip3 install
 the command <code>hy</code>, or run a Hy program with <code>hy myprogram.hy</code>.
 </p>
 
+<h2>Example code</h2>
+
+<p>See
+<a href="https://docs.hylang.org/en/stable/tutorial.html">the tutorial</a>
+for many more examples.</p>
+
 </main>
+
+<table>
+<tr><th>Hy<th>Python</tr>
+
+<tr><td>(setv foobar (+ 2 2))
+(setv [tim eric] ["jim" "derrick"])
+(setv  alpha "a"  beta "b")
+<td>foobar = 2 + 2
+tim, eric = 'jim', 'derrick'
+alpha = 'a'; beta = 'b'
+</tr>
+
+<tr><td>(sorted "abcBC"
+  :key (fn [x] (.lower x)))
+<td>sorted("abcBC",
+    key = lambda x: x.lower())
+</tr>
+
+<tr><td>(defn test [a b [c "x"] #* d]
+  [a b c d])
+<td>def test(a, b, c="x", *d):
+    return [a, b, c, d]
+</tr>
+
+<tr><td>(with [o (open "file.txt" "rt")]
+  (setv buffer [])
+  (while (&lt; (len buffer) 10)
+    (.append buffer (next o))))
+<td>with open('file.txt', 'rt') as o:
+    buffer = []
+    while len(buffer) &lt; 10:
+        buffer.append(next(o))
+</tr>
+
+<tr><td>(lfor
+  x (range 3)
+  y (range 3)
+  :if (= (+ x y) 3)
+  (* x y))
+<td>[x * y
+    for x in range(3)
+    for y in range(3)
+    if x + y == 3]
+</tr>
+
+<tr><td>(defmacro do-while [test #* body]
+  `(do
+    ~body
+    (while ~test
+      ~body)))
+
+(setv x 0)
+(do-while x
+  (print "Printed once."))
+<td>x = 0
+print("Printed once.")
+while x:
+    print("Printed once.")
+</tr>
+
+</table>

@@ -46,7 +46,22 @@ main {
   margin-right: auto;
 }
 
-code {
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+code, td {
   color: black;
   background-color: #eee;
+}
+
+td, th {
+  border: thick solid white;
+}
+
+td {
+  vertical-align: top;
+  white-space: pre;
+  font-family: monospace;
 }
