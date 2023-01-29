@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+
+<style>
+#loading-message, #console, #console-input
+   {font-family: monospace;
+    white-space: pre-wrap}
+#console-input-chunk
+   {display: none}
+</style>
+
+<title>Try Hy</title>
+
+<p>This page lets you run the <a href="https://hylang.org">Hy</a> <a href="https://docs.hylang.org/en/stable/repl.html">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
+
+<p><button id='restart'>Restart</button> <label><input id='spy' type='checkbox'> Spy mode (show equivalent Python)</label></p>
+
+<hr>
+
+<div id='loading-message'></div><form id='console'><span id='console-input-chunk'>=&gt; <input type='text' id='console-input'></span></form>
+
+<script src="try-hy.js"></script>
