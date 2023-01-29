@@ -67,5 +67,8 @@ td {
 }
 
 footer {
-  padding: 1em
+  text-align: center
+}
+footer > img {
+  padding: 1em;
 }
