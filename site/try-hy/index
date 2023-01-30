@@ -20,4 +20,4 @@
 
 <div id='loading-message'></div><form id='console'><span id='console-input-chunk'>=&gt; <input type='text' id='console-input'></span></form>
 
-<script src="try-hy.js"></script>
+<script src="/try-hy/try-hy.js"></script>

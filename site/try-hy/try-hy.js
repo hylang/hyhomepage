@@ -14,7 +14,7 @@ let startup = async function()
         E = js.document.getElementById
 
         # Fetch Hy and install its dependencies.
-        await (await pyfetch('hy-for-pyodide.tar.gz')).unpack_archive()
+        await (await pyfetch('/try-hy/hy-for-pyodide.tar.gz')).unpack_archive()
         for dependency in ast.parse(Path("setup.py").read_text()).body[0].value.elts:
              await micropip.install(dependency.value)
         import hy
