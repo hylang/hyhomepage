@@ -12,7 +12,7 @@
 
 <title>Try Hy</title>
 
-<p>This page lets you run the <a href="https://hylang.org">Hy</a> <a href="https://docs.hylang.org/en/stable/repl.html">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
+<p>This page lets you run the <a href="http://hylang.org">Hy</a> <a href="https://docs.hylang.org/en/stable/repl.html">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
 
 <p><button id='restart'>Restart</button> <label><input id='spy' type='checkbox'> Spy mode (show equivalent Python)</label></p>
 
