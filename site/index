@@ -97,9 +97,9 @@ alpha = 'a'; beta = 'b'
 
 <tr><td>(defmacro do-while [test #* body]
   `(do
-    ~body
+    ~@body
     (while ~test
-      ~body)))
+      ~@body)))
 
 (setv x 0)
 (do-while x
