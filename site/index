@@ -2,6 +2,7 @@
 <html lang="en">
 <meta charset="UTF-8">
 <title>The Hy programming language</title>
+<link rel="icon" type="image/png" href="/favicon.png">
 <link type="text/css" rel="stylesheet" href="main.css">
 
 <header>
