@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<title>Try Hy</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
 
@@ -10,8 +11,6 @@
 #console-input-chunk
    {display: none}
 </style>
-
-<title>Try Hy</title>
 
 <p>This page lets you run the <a href="http://hylang.org">Hy</a> <a href="https://docs.hylang.org/en/stable/repl.html">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
 
