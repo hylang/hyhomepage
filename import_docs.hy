@@ -1,3 +1,5 @@
+#!/usr/bin/env hy
+
 (import
   re
   sys
