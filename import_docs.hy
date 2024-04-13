@@ -13,8 +13,11 @@
 (setv out-dir (/ (Path "site/hy/doc") hy-version))
 
 (subprocess.run :check True ["rsync"
-  "--delete" "--protect-args" "-a"
-  "--exclude=*.js"
+  "--protect-args" "-a"
+  "--delete" "--delete-excluded"
+  "--exclude=*.js" "--exclude=.*"
+  "--exclude=search.html" "--exclude=*-modindex.html"
+  "--exclude=genindex.html"
   f"{top-dir}/hy/docs/_build/"
   out-dir])
 
