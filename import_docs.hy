@@ -11,6 +11,7 @@
 
 (setv hy-version "doc-testing") ;(get (re.search "'(.+?)'" (.read-text (/ top-dir "hy" "hy" "version.py"))) 1))
 (setv out-dir (/ (Path "site/hy/doc") hy-version))
+(setv landing-page (Path "site/index"))
 
 (subprocess.run :check True ["rsync"
   "--protect-args" "-a"
@@ -61,3 +62,12 @@
 
   ; Write out to a new HTML file with the file extension removed.
   (.write-bytes (/ fname.parent fname.stem) (lxml.html.tostring doc)))
+
+; Update documentation links as necessary on the main landing page.
+(setv orig (.read-text landing-page))
+(setv new (re.sub
+  "(href=\"/hy/doc/)[^\"/#]+"
+  (+ r"\1" hy-version)
+  orig))
+(when (!= new orig)
+  (.write-text landing-page new))
