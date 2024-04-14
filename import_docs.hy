@@ -10,10 +10,11 @@
 (setv top-dir (Path (get sys.argv 1)))
 
 (setv versions (dict
-  :hy "doc-testing"))
+  :hy "doc-testing"
+  :hyrule "doc-testing"))
 (setv landing-page (Path "site/index"))
 
-(for [project ["hy"]]
+(for [project ["hy" "hyrule"]]
   (setv version (get versions project))
   (setv out-dir (/ (Path "site") project "doc" version))
 
@@ -44,6 +45,14 @@
     (for [e (xp "a")]
       (when (in (.get e "title") ["General Index" "Hy Module Index"])
         (.drop-tree (.getparent e))))
+
+    ; Apply some simplifications for a single-page manual.
+    (when (= project "hyrule")
+      (for [tag ["title" "h1"]]
+        (setv (. (xp tag) [0] text) f"Hyrule {version} manual"))
+      ; Delete breadcrumb links.
+      (for [e (xp "*[@aria-label = 'related navigation']")]
+        (.drop-tree e)))
 
     ; Loop through internal URLs.
     (for [url-attr ["href" "src"]  e (xp f"*[@{url-attr}]")]
