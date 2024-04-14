@@ -60,8 +60,15 @@
         (.get e url-attr))
       (defn set-href [value]
         (.set e url-attr value))
-      (when (or (is (href) None) (re.match "#|[a-z]+://" (href)))
+      (when (or (is (href) None) (re.match "[a-z]+://" (href)))
         (continue))
+      ; Correct encoding of fragments.
+      (setv [initial _ fragment] (.partition (href) "#"))
+      (when fragment
+        (set-href (+ initial "#" (.decode (re.sub
+          rb"([^a-zA-Z0-9?/:@\-._~!$&'()*+,;=])"
+          (fn [x] (.encode (.format "%{:02x}" (get x 0 0))))
+          (.encode fragment))))))
       ; Strip HTML file extensions in internal links.
       (set-href (re.sub r"\.html\b" "" (href)))
       ; Don't refer to "index" explicitly.
@@ -69,7 +76,7 @@
         (set-href ""))
       ; Make internal links absolute, so they're robust to the removal
       ; of trailing slashes from URLs.
-      (when (not (.startswith (href) "/"))
+      (when (not (re.match "[#/]" (href)))
         (set-href f"/{project}/doc/{version}/{(href)}")))
 
     ; Write out to a new HTML file with the file extension removed.
