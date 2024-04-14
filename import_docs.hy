@@ -52,7 +52,7 @@
           (.get e url-attr))
         (defn set-href [value]
           (.set e url-attr value))
-        (when (or (is (href) None) (re.match "#|https?://" (href)))
+        (when (or (is (href) None) (re.match "#|[a-z]+://" (href)))
           (continue))
         ; Strip HTML file extensions in internal links.
         (set-href (re.sub r"\.html\b" "" (href)))
