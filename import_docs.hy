@@ -9,9 +9,13 @@
 
 (setv top-dir (Path (get sys.argv 1)))
 
-(setv hy-version "doc-testing") ;(get (re.search "'(.+?)'" (.read-text (/ top-dir "hy" "hy" "version.py"))) 1))
-(setv out-dir (/ (Path "site/hy/doc") hy-version))
+(setv versions (dict
+  :hy "doc-testing"))
 (setv landing-page (Path "site/index"))
+
+(for [project ["hy"]]
+  (setv version (get versions project))
+  (setv out-dir (/ (Path "site") project "doc" version))
 
   (subprocess.run :check True ["rsync"
     "--protect-args" "-a"
@@ -19,7 +23,7 @@
     "--exclude=*.js" "--exclude=.*"
     "--exclude=search.html" "--exclude=*-modindex.html"
     "--exclude=genindex.html"
-    f"{top-dir}/hy/docs/_build/"
+    f"{top-dir}/{project}/docs/_build/"
     out-dir])
 
   (for [fname (.iterdir (Path out-dir))  :if (= fname.suffix ".html")]
@@ -58,16 +62,17 @@
         ; Make internal links absolute, so they're robust to the removal
         ; of trailing slashes from URLs.
         (when (not (.startswith (href) "/"))
-          (set-href f"/hy/doc/{hy-version}/{(href)}"))))
+          (set-href f"/{project}/doc/{version}/{(href)}"))))
 
     ; Write out to a new HTML file with the file extension removed.
     (.write-bytes (/ fname.parent fname.stem) (lxml.html.tostring doc)))
 
+  (when (= project "hy")
     ; Update documentation links as necessary on the main landing page.
     (setv orig (.read-text landing-page))
     (setv new (re.sub
       "(href=\"/hy/doc/)[^\"/#]+"
-      (+ r"\1" hy-version)
+      (+ r"\1" version)
       orig))
     (when (!= new orig)
-      (.write-text landing-page new))
+      (.write-text landing-page new))))
