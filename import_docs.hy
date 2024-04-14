@@ -30,39 +30,38 @@
 
     (setv doc (lxml.html.parse fname))
     (.unlink fname)
-    (for [e (list (.iter doc))]
 
-      ; Delete all JavaScript.
-      (when (or
-          (= e.tag "script")
-          (and (= e.tag "link") (= (.get e "rel") "search")))
-        (.drop-tree e)
+    (defn xp [#* xs]
+      (sum :start [] (lfor
+        x xs
+        (.xpath doc (+ "//" x)))))
+
+    ; Delete all JavaScript.
+    (for [e (xp "script" "link[rel='search']")]
+      (.drop-tree e))
+
+    ; Delete links to the generated indices.
+    (for [e (xp "a")]
+      (when (in (.get e "title") ["General Index" "Hy Module Index"])
+        (.drop-tree (.getparent e))))
+
+    ; Loop through internal URLs.
+    (for [url-attr ["href" "src"]  e (xp f"*[@{url-attr}]")]
+      (defn href []
+        (.get e url-attr))
+      (defn set-href [value]
+        (.set e url-attr value))
+      (when (or (is (href) None) (re.match "#|[a-z]+://" (href)))
         (continue))
-
-      ; Delete links to the generated indices.
-      (when (and
-          (= e.tag "a")
-          (in (.get e "title") ["General Index" "Hy Module Index"]))
-        (.drop-tree (.getparent e))
-        (continue))
-
-      ; Loop through internal URLs.
-      (for [url-attr ["href" "src"]]
-        (defn href []
-          (.get e url-attr))
-        (defn set-href [value]
-          (.set e url-attr value))
-        (when (or (is (href) None) (re.match "#|[a-z]+://" (href)))
-          (continue))
-        ; Strip HTML file extensions in internal links.
-        (set-href (re.sub r"\.html\b" "" (href)))
-        ; Don't refer to "index" explicitly.
-        (when (= (href) "index")
-          (set-href ""))
-        ; Make internal links absolute, so they're robust to the removal
-        ; of trailing slashes from URLs.
-        (when (not (.startswith (href) "/"))
-          (set-href f"/{project}/doc/{version}/{(href)}"))))
+      ; Strip HTML file extensions in internal links.
+      (set-href (re.sub r"\.html\b" "" (href)))
+      ; Don't refer to "index" explicitly.
+      (when (= (href) "index")
+        (set-href ""))
+      ; Make internal links absolute, so they're robust to the removal
+      ; of trailing slashes from URLs.
+      (when (not (.startswith (href) "/"))
+        (set-href f"/{project}/doc/{version}/{(href)}")))
 
     ; Write out to a new HTML file with the file extension removed.
     (.write-bytes (/ fname.parent fname.stem) (lxml.html.tostring doc)))
