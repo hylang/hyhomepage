@@ -87,7 +87,10 @@
   (setv so-p (/ out-dir "objects.inv"))
   (setv so (sphobjinv.Inventory so-p))
   (for [o so.objects]
-    (setv o.uri (re.sub r"\.html\b" "" o.uri :count 1)))
+    (setv o.uri (re.sub
+      r"(^index)?\.html\b"
+      ""
+      o.uri :count 1)))
   (sphobjinv.writebytes so-p (sphobjinv.compress (.data-file so)))
 
   (when (= project "hy")
