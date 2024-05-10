@@ -42,6 +42,10 @@
     (for [e (xp "script" "link[rel='search']")]
       (.drop-tree e))
 
+    ; Add a favicon.
+    (.append (get (xp "//head") 0) (lxml.html.fragment-fromstring
+      "<link rel='icon' type='image/png' href='/favicon.png'>"))
+
     ; Delete links to the generated indices.
     (for [e (xp "a")]
       (when (in (.get e "title") ["General Index" "Hy Module Index"])
