@@ -1,7 +1,6 @@
 #!/bin/sh
 # As an argument, this script should be given the path to a parent
-# directory of some local clones of Hy and Hyrule. `hy/hy/version.py`
-# should already exist.
+# directory of some local clones of Hy and Hyrule.
 
 tar --create --auto-compress \
     --exclude __pycache__ \
