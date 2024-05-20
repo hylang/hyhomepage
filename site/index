@@ -34,7 +34,7 @@ other Lisps, Hy provides direct access to Python's built-ins and
 third-party Python libraries, while allowing you to freely mix
 imperative, functional, and object-oriented styles of programming.
 
-<a href="/hy/doc/v0.28.0/whyhy">(More on "Why Hy?")</a>
+<a href="/hy/doc/v0.29.0/whyhy">(More on "Why Hy?")</a>
 </p>
 
 <p>
@@ -47,7 +47,7 @@ the command <code>hy</code>, or run a Hy program with <code>hy myprogram.hy</cod
 <h2>Example code</h2>
 
 <p>See
-<a href="/hy/doc/v0.28.0/tutorial">the tutorial</a>
+<a href="/hy/doc/v0.29.0/tutorial">the tutorial</a>
 for many more examples.</p>
 
 </main>
