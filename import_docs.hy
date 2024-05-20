@@ -97,7 +97,7 @@
       o.uri :count 1)))
   (sphobjinv.writebytes so-p (sphobjinv.compress (.data-file so)))
 
-  (when (= project "hy")
+  (when (and (= project "hy") (!= version "doc-testing"))
     ; Update documentation links as necessary on the main landing page.
     (setv orig (.read-text landing-page))
     (setv new (re.sub
