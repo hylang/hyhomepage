@@ -53,13 +53,16 @@
           ["Python Module Index" "Hy Module Index" "General Index"])
         (.drop-tree (.getparent e))))
 
-    ; Apply some simplifications for a single-page manual.
+    ; Delete the bottom breadcrumb bar, and keep the top one only for
+    ; a multi-page manual.
+    (for [[i e] (enumerate (xp "*[@aria-label = 'related navigation']"))]
+      (when (or i (= project "hyrule"))
+        (.drop-tree e)))
+
+    ; Simplify the title for a single-page manual.
     (when (= project "hyrule")
       (for [tag ["title" "h1"]]
-        (setv (. (xp tag) [0] text) f"Hyrule {version} manual"))
-      ; Delete breadcrumb links.
-      (for [e (xp "*[@aria-label = 'related navigation']")]
-        (.drop-tree e)))
+        (setv (. (xp tag) [0] text) f"Hyrule {version} manual")))
 
     ; Loop through internal URLs.
     (for [url-attr ["href" "src"]  e (xp f"*[@{url-attr}]")]
