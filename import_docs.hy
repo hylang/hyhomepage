@@ -48,7 +48,9 @@
 
     ; Delete links to the generated indices.
     (for [e (xp "a")]
-      (when (in (.get e "title") ["General Index" "Hy Module Index"])
+      (when (in
+          (.get e "title")
+          ["Python Module Index" "Hy Module Index" "General Index"])
         (.drop-tree (.getparent e))))
 
     ; Apply some simplifications for a single-page manual.
