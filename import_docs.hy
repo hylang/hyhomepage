@@ -53,6 +53,11 @@
           ["Python Module Index" "Hy Module Index" "General Index"])
         (.drop-tree (.getparent e))))
 
+    ; Delete the page's breadcrumb link to itself, and the preceding "»".
+    (for [e (xp "*[@class = 'nav-item nav-item-this']")]
+      (setv (. e (getprevious) [-1] tail) "")
+      (.drop-tree e))
+
     ; Delete the bottom breadcrumb bar, and keep the top one only for
     ; a multi-page manual.
     (for [[i e] (enumerate (xp "*[@aria-label = 'related navigation']"))]
