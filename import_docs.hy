@@ -64,6 +64,13 @@
       (when (or i (= project "hyrule"))
         (.drop-tree e)))
 
+    ; Remove the Hy version nickname from the HTML title.
+    (when (= project "hy")
+      (setv (. (xp "title") [0] text) (re.sub
+        r" \([^)]+\) manual\Z"
+        " manual"
+        (. (xp "title") [0] text))))
+
     ; Simplify the title for a single-page manual.
     (when (= project "hyrule")
       (for [tag ["title" "h1"]]
