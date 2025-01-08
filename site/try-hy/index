@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <title>Try Hy</title>
 <link rel="icon" type="image/png" href="/favicon.png">
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js"></script>
 
 <style>
 #loading-message, #console, #console-input
