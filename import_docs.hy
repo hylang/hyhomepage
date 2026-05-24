@@ -39,14 +39,16 @@
         (.xpath doc (+ "//" x)))))
 
     ; Delete all JavaScript.
-    (for [e (xp "script" "link[rel='search']")]
+    (for [e (xp "script")]
       (.drop-tree e))
 
     ; Add a favicon.
     (.append (get (xp "//head") 0) (lxml.html.fragment-fromstring
       "<link rel='icon' type='image/png' href='/favicon.png'>"))
 
-    ; Delete links to the generated indices.
+    ; Delete links to the generated indices and the search page.
+    (for [e (xp "link[@rel = 'index' or @rel = 'search']")]
+      (.drop-tree e))
     (for [e (xp "a")]
       (when (in
           (.get e "title")
