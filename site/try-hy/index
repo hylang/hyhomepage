@@ -12,7 +12,7 @@
    {display: none}
 </style>
 
-<p>This page lets you run the <a href="/">Hy</a> <a href="/hy/doc/v1.2.0/repl">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
+<p>This page lets you run the <a href="/">Hy</a> <a href="/hy/doc/v1.3.0/repl">REPL</a> in your web browser via WebAssembly and <a href="https://pyodide.org">Pyodide</a>.<noscript> It requires JavaScript.</noscript></p>
 
 <p><button id='restart'>Restart</button> <label><input id='spy' type='checkbox'> Spy mode (show equivalent Python)</label></p>
 

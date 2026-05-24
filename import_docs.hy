@@ -11,7 +11,7 @@
 (setv top-dir (Path (get sys.argv 1)))
 
 (setv versions (dict
-  :hy "v1.2.0"
+  :hy "v1.3.0"
   :hyrule "doc-testing"))
 (setv landing-page (Path "site/index"))
 
